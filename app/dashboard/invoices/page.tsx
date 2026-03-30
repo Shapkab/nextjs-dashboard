@@ -22,7 +22,8 @@ export default async function Page({
   };
 }) {
   const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
+  const pageParam = Number(searchParams?.page);
+  const currentPage = Number.isFinite(pageParam) && pageParam > 0 ? Math.floor(pageParam) : 1;
   const totalPages = await fetchInvoicesPages(query);
 
   return (
